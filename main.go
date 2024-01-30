@@ -15,12 +15,14 @@ func Test(c *gin.Context) {
 
 func main() {
 	port := os.Getenv("PORT")
+	addr := os.Getenv("REMOTE_ADDR")
 
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
 
 	router := gin.Default()
+	router.SetTrustedProxies([]string{addr})
 	router.GET("/", Test)
 
 	router.Run(":" + port)
