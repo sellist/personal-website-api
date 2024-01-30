@@ -4,20 +4,26 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	host, err := os.Hostname()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Write([]byte(host))
+func Test(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, "Hello world!")
 }
 
 func main() {
-	log.Println("Starting http server...")
-	http.HandleFunc("/", Handler)
-	log.Fatal(http.ListenAndServe(":80", nil))
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	router := gin.Default()
+	router.GET("/", Test)
+
+	router.Run("localhost:8080")
+
+	router.Run(":" + port)
 }
