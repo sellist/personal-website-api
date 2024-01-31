@@ -17,6 +17,8 @@ func Run() {
 	if dyno == "" {
 		log.Println("No dyno detected, running locally")
 		address = "localhost:8080"
+	} else {
+		address = ":" + address
 	}
 
 	if address == "" {
