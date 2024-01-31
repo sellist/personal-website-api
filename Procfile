@@ -1,1 +1,1 @@
-web: personal-website-api/cmd/server/main
+web: personal-website-api

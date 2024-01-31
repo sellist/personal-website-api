@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"github.com/sellist/personal-website-api/internal/testing"
@@ -9,7 +9,7 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
-func main() {
+func Run() {
 	address := os.Getenv("PORT")
 	remoteAddr := os.Getenv("REMOTE_ADDR")
 	dyno := os.Getenv("DYNO")
